@@ -1,4 +1,4 @@
-name: Distribute to PyPI
+ame: Distribute to PyPI
 
 on: [push, pull_request]
 
