@@ -7,6 +7,7 @@
 #===================================================================
 beetools
 configparserext
+installit
 releaselogit
 semverit
 termcolor
