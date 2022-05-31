@@ -25,7 +25,6 @@ mkdir $venv_dir
 chmod 777 $venv_dir
 python3 -m venv --clear $rte_install_venv
 source $rte_install_venv/bin/activate
-echo 'machine github.com login hendrikdutoit password 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' >> ~/.netrc
 pip install --upgrade InstallIt
 pip install --upgrade git+https://github.com/hendrikdutoit/rteInstallServer.git
 

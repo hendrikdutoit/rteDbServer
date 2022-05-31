@@ -11,6 +11,7 @@ Archive/
 TestData/*_env/
 .git/
 tmp/
+data/.netrc
 
 
 # Byte-compiled / optimized / DLL files
