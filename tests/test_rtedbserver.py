@@ -23,6 +23,12 @@ class TestrteDbServer:
         assert t_rtedbserver.success
         pass
 
+    def test_create_linux_users(self, env_setup_self_destruct):
+        env_setup = env_setup_self_destruct
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
+        t_rtedbserver.create_linux_users()
+        pass
+
     def test_install(self, env_setup_self_destruct):
         env_setup = env_setup_self_destruct
         t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)

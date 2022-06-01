@@ -415,8 +415,8 @@ class RteDbServer:
             )
         ]
         beescript.exec_batch(batch, p_verbose=True)
-        # self.create_linux_users()
-        # self.create_mysql_users()
+        self.create_linux_users()
+        self.create_mysql_users()
         # self.install_system_prereq_packages()
         # for reahl_wheel in self.ini.get(
         #     "ReahlWheels", self.package_prefix, p_prefix=True, p_split=False
