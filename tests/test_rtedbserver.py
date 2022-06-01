@@ -17,11 +17,16 @@ b_tls = Archiver(_PROJ_DESC, _PROJ_PATH)
 
 class TestrteDbServer:
     def test__init__(self, env_setup_self_destruct):
-        """Assert class __init__"""
         env_setup = env_setup_self_destruct
         t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
 
         assert t_rtedbserver.success
+        pass
+
+    def test_install(self, env_setup_self_destruct):
+        env_setup = env_setup_self_destruct
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
+        t_rtedbserver.install()
         pass
 
 

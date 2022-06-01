@@ -17,13 +17,10 @@ _DESC = __doc__.split('\n')[0]
 _PATH = Path(__file__)
 
 _INI = '''
-# [Batch01]
-# Cmd1010 = sudo;apt-get;-y;purge;do-agent
-# Cmd1020 = curl;-sSL;https://repos.insights.digitalocean.com/install.sh;-o;/tmp/install.sh
-# Cmd1030 = sudo;bash;/tmp/install.sh
-# Cmd1050 = sudo;apt-get;-y;install;nginx
-# Cmd1060 = sudo;apt-get;-y;install;mysql-server
-#
+[Batch01]
+Cmd1050 = sudo;apt-get;-y;install;nginx
+Cmd1060 = sudo;apt-get;-y;install;mysql-server
+
 # [Batch02]
 # Cmd2010 = sudo;apt-get;-y;install;php-fpm
 # Cmd2020 = sudo;apt-get;-y;install;php-mysql
@@ -93,9 +90,9 @@ _INI = '''
 # CodeSubFolder  = Code
 # DataSubFolder  = Data
 #
-# [General]
-# BatchNamePrefix   = Batch
-# CommandNamePrefix = Cmd
+[General]
+BatchNamePrefix   = Batch
+CommandNamePrefix = Cmd
 # DefAdminEmail     = admin  # Omit the domain
 # DomainNamePrefix  = Url
 # PackagePrefix     = App
@@ -103,7 +100,7 @@ _INI = '''
 # TargetOS          = linux
 # UserPrefix        = User
 # VenvSuffix        = _env
-#
+
 # [LinuxUsers]
 # User1 = hendrik;S@ret6810;sudo
 #

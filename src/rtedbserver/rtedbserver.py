@@ -52,8 +52,8 @@ class RteDbServer:
         self.ini = configparserext.ConfigParserExt(inline_comment_prefixes="#")
         self.ini.read([self.ini_path])
 
-        # self.batch_name_prefix = self.ini.get("General", "BatchNamePrefix")
-        # self.command_name_prefix = self.ini.get("General", "CommandNamePrefix")
+        self.batch_name_prefix = self.ini.get("General", "BatchNamePrefix")
+        self.command_name_prefix = self.ini.get("General", "CommandNamePrefix")
         # self.curr_os = beeutils.get_os()
         # self.data_dir = Path(self.ini.get("DEFAULT", "DataFolder"))
         # self.domain_name_prefix = self.ini.get("General", "DomainNamePrefix")
@@ -403,57 +403,57 @@ class RteDbServer:
             )
         ]
         beescript.exec_batch(batch, p_verbose=True)
-        self.secure_mysql()
-        self.start_firewall()
-        batch = [
-            x[1]
-            for x in self.ini.get(
-                "{}02".format(self.batch_name_prefix),
-                self.command_name_prefix,
-                p_prefix=True,
-                p_split=True,
-            )
-        ]
-        beescript.exec_batch(batch, p_verbose=True)
-        self.create_linux_users()
-        self.create_mysql_users()
-        self.install_system_prereq_packages()
-        for reahl_wheel in self.ini.get(
-            "ReahlWheels", self.package_prefix, p_prefix=True, p_split=False
-        ):
-            reahl_app_name = self.inst_tls.get_reahl_app_name(reahl_wheel[1])
-            beescript.exec_cmd(
-                ["python3", "-m", "venv", self.make_reahl_env_dir(reahl_app_name)]
-            )
-            self.install_reahl_prereq_packages(reahl_app_name)
-            self.install_reahl_apps(reahl_app_name, reahl_wheel[1])
-            reahl_app_www_pth = self.www_dir / reahl_app_name
-            reahl_app_www_pth.mkdir(parents=True, exist_ok=True)
-            if self.curr_os == beeutils.LINUX:
-                beescript.exec_cmd(["sudo", "chmod", "777", reahl_app_www_pth])
-                beescript.exec_cmd(
-                    ["sudo", "chown", "www-data.www-data", reahl_app_www_pth]
-                )
-            self.config_reahl_domain(reahl_app_name)
-            self.create_reahl_config(reahl_app_name)
-            self.create_reahl_system_account_model_config(reahl_app_name)
-            self.create_reahl_web_config(reahl_app_name)
-            self.create_uwsgi_ini(reahl_app_name)
-            self.create_db(reahl_app_name)
-        for domain_name in self.ini.get(
-            "Domains", self.domain_name_prefix, p_prefix=True, p_split=False
-        ):
-            self.create_nginx_config(domain_name[1])
-        batch = [
-            x[1]
-            for x in self.ini.get(
-                "{}03".format(self.batch_name_prefix),
-                self.command_name_prefix,
-                p_prefix=True,
-                p_split=True,
-            )
-        ]
-        beescript.exec_batch(batch, p_verbose=True)
+        # self.secure_mysql()
+        # self.start_firewall()
+        # batch = [
+        #     x[1]
+        #     for x in self.ini.get(
+        #         "{}02".format(self.batch_name_prefix),
+        #         self.command_name_prefix,
+        #         p_prefix=True,
+        #         p_split=True,
+        #     )
+        # ]
+        # beescript.exec_batch(batch, p_verbose=True)
+        # self.create_linux_users()
+        # self.create_mysql_users()
+        # self.install_system_prereq_packages()
+        # for reahl_wheel in self.ini.get(
+        #     "ReahlWheels", self.package_prefix, p_prefix=True, p_split=False
+        # ):
+        #     reahl_app_name = self.inst_tls.get_reahl_app_name(reahl_wheel[1])
+        #     beescript.exec_cmd(
+        #         ["python3", "-m", "venv", self.make_reahl_env_dir(reahl_app_name)]
+        #     )
+        #     self.install_reahl_prereq_packages(reahl_app_name)
+        #     self.install_reahl_apps(reahl_app_name, reahl_wheel[1])
+        #     reahl_app_www_pth = self.www_dir / reahl_app_name
+        #     reahl_app_www_pth.mkdir(parents=True, exist_ok=True)
+        #     if self.curr_os == beeutils.LINUX:
+        #         beescript.exec_cmd(["sudo", "chmod", "777", reahl_app_www_pth])
+        #         beescript.exec_cmd(
+        #             ["sudo", "chown", "www-data.www-data", reahl_app_www_pth]
+        #         )
+        #     self.config_reahl_domain(reahl_app_name)
+        #     self.create_reahl_config(reahl_app_name)
+        #     self.create_reahl_system_account_model_config(reahl_app_name)
+        #     self.create_reahl_web_config(reahl_app_name)
+        #     self.create_uwsgi_ini(reahl_app_name)
+        #     self.create_db(reahl_app_name)
+        # for domain_name in self.ini.get(
+        #     "Domains", self.domain_name_prefix, p_prefix=True, p_split=False
+        # ):
+        #     self.create_nginx_config(domain_name[1])
+        # batch = [
+        #     x[1]
+        #     for x in self.ini.get(
+        #         "{}03".format(self.batch_name_prefix),
+        #         self.command_name_prefix,
+        #         p_prefix=True,
+        #         p_split=True,
+        #     )
+        # ]
+        # beescript.exec_batch(batch, p_verbose=True)
         pass
 
     def install_reahl_prereq_packages(self, p_app_name):
