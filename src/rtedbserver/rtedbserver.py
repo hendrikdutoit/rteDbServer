@@ -33,7 +33,7 @@ class RteDbServer:
 
     """
 
-    def __init__(self, p_ini_pth, p_logger=None):
+    def __init__(self, p_ini_pth):
         """
 
         Parameters
@@ -48,8 +48,6 @@ class RteDbServer:
 
         """
         self.success = True
-        if p_logger:
-            pass
         self.ini_path = p_ini_pth
         self.ini = configparserext.ConfigParserExt(inline_comment_prefixes="#")
         self.ini.read([self.ini_path])
