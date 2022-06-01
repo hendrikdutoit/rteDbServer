@@ -35,5 +35,11 @@ class TestrteDbServer:
         t_rtedbserver.secure_mysql()
         pass
 
+    def test_start_firewall(self, env_setup_self_destruct):
+        env_setup = env_setup_self_destruct
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
+        t_rtedbserver.start_firewall()
+        pass
+
 
 del b_tls

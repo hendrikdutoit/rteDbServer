@@ -404,7 +404,7 @@ class RteDbServer:
         ]
         beescript.exec_batch(batch, p_verbose=True)
         self.secure_mysql()
-        # self.start_firewall()
+        self.start_firewall()
         # batch = [
         #     x[1]
         #     for x in self.ini.get(
