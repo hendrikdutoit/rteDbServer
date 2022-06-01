@@ -18,10 +18,10 @@ _PATH = Path(__file__)
 
 _INI = '''
 [Batch01]
-Cmd1050 = sudo;apt-get;-y;install;nginx
+# Cmd1050 = sudo;apt-get;-y;install;nginx
 Cmd1060 = sudo;apt-get;-y;install;mysql-server
 
-# [Batch02]
+[Batch02]
 # Cmd2010 = sudo;apt-get;-y;install;php-fpm
 # Cmd2020 = sudo;apt-get;-y;install;php-mysql
 # Cmd2030 = sudo;apt-get;-y;install;gcc
@@ -33,7 +33,7 @@ Cmd1060 = sudo;apt-get;-y;install;mysql-server
 # #Cmd2080 = sudo;apt-get;-y;rteinstallserver;python3-pip
 # Cmd2090 = sudo;apt-get;-y;install;libsqlite3-0
 # Cmd2100 = sudo;apt-get;-y;install;libmysqlclient-dev
-# Cmd2110 = sudo;apt-get;-y;install;mysql-client
+Cmd2110 = sudo;apt-get;-y;install;mysql-client
 # Cmd2120 = sudo;apt-get;-y;install;uwsgi
 # Cmd2130 = sudo;apt-get;-y;install;uwsgi-plugin-python3
 # Cmd2140 = sudo;apt-get;-y;install;python3-venv

@@ -405,16 +405,16 @@ class RteDbServer:
         beescript.exec_batch(batch, p_verbose=True)
         self.secure_mysql()
         self.start_firewall()
-        # batch = [
-        #     x[1]
-        #     for x in self.ini.get(
-        #         "{}02".format(self.batch_name_prefix),
-        #         self.command_name_prefix,
-        #         p_prefix=True,
-        #         p_split=True,
-        #     )
-        # ]
-        # beescript.exec_batch(batch, p_verbose=True)
+        batch = [
+            x[1]
+            for x in self.ini.get(
+                "{}02".format(self.batch_name_prefix),
+                self.command_name_prefix,
+                p_prefix=True,
+                p_split=True,
+            )
+        ]
+        beescript.exec_batch(batch, p_verbose=True)
         # self.create_linux_users()
         # self.create_mysql_users()
         # self.install_system_prereq_packages()
