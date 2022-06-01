@@ -53,7 +53,7 @@ Cmd2110 = sudo;apt-get;-y;install;mysql-client
 # Cmd2290 = sudo;chmod;-R;u+wr,g+wr,o+wr;%(UwsgiRootFolder)s/apps-enabled
 # Cmd2300 = sudo;rm;-f;%(NginXRootFolder)s/sites-enabled/default
 #
-# [Batch03]
+[Batch03]
 # Cmd3010 = sudo;nginx;-t
 # Cmd3020 = sudo;systemctl;stop;nginx
 # Cmd3030 = sudo;systemctl;start;nginx
@@ -95,10 +95,10 @@ BatchNamePrefix   = Batch
 CommandNamePrefix = Cmd
 # DefAdminEmail     = admin  # Omit the domain
 # DomainNamePrefix  = Url
-# PackagePrefix     = App
-# MySQLRightsPrefix = Rights
+PackagePrefix     = App
+MySQLRightsPrefix = Rights
 # TargetOS          = linux
-# UserPrefix        = User
+UserPrefix        = User
 # VenvSuffix        = _env
 
 # [LinuxUsers]
@@ -159,9 +159,9 @@ Admin = root;En0l@Gay
 # SiteActive  = Yes
 # ReahlApp    = prodigyhelmsman
 #
-# [SystemPreReqPackages]
-# App100 = mysql-connector-python
-#
+[SystemPreReqPackages]
+App100 = mysql-connector-python
+
 # [SystemPreReqWheels]
 #
 # [Test]

@@ -59,11 +59,11 @@ class RteDbServer:
         # self.domain_name_prefix = self.ini.get("General", "DomainNamePrefix")
         # self.etc_dir = Path(self.ini.get("DEFAULT", "etcFolder"))
         # self.install_userid = Path(self.ini.get("DEFAULT", "InstallUserId"))
-        # self.mysql_rights_prefix = self.ini.get("General", "MySQLRightsPrefix")
+        self.mysql_rights_prefix = self.ini.get("General", "MySQLRightsPrefix")
         # self.nginx_root_dir = Path(self.ini.get("DEFAULT", "NginXRootFolder"))
         # self.nginx_sites_available_dir = self.nginx_root_dir / "sites-available"
         # self.nginx_sites_enabled_dir = self.nginx_root_dir / "sites-enabled"
-        # self.package_prefix = self.ini.get("General", "PackagePrefix")
+        self.package_prefix = self.ini.get("General", "PackagePrefix")
         # self.reahl_config_dir = Path(self.ini.get("DEFAULT", "ReahlConfigFolder"))
         # self.reahl_db_dir = Path(self.ini.get("DEFAULT", "ReahlDbFolder"))
         # self.reahl_distribution_dir = Path(
@@ -72,7 +72,7 @@ class RteDbServer:
         # self.reahl_dir = Path(self.ini.get("DEFAULT", "ReahlFolder"))
         # self.target_os = self.ini.get("General", "TargetOS")
         # self.test_mode = self.ini.getboolean("Test", "TestMode")
-        # self.user_prefix = self.ini.get("General", "UserPrefix")
+        self.user_prefix = self.ini.get("General", "UserPrefix")
         # self.uwsgi_root_dir = Path(self.ini.get("DEFAULT", "UwsgiRootFolder"))
         # self.uwsgi_apps_available_dir = self.uwsgi_root_dir / "apps-available"
         # self.uwsgi_apps_enabled_dir = self.uwsgi_root_dir / "apps-enabled"
@@ -417,43 +417,17 @@ class RteDbServer:
         beescript.exec_batch(batch, p_verbose=True)
         self.create_linux_users()
         self.create_mysql_users()
-        # self.install_system_prereq_packages()
-        # for reahl_wheel in self.ini.get(
-        #     "ReahlWheels", self.package_prefix, p_prefix=True, p_split=False
-        # ):
-        #     reahl_app_name = self.inst_tls.get_reahl_app_name(reahl_wheel[1])
-        #     beescript.exec_cmd(
-        #         ["python3", "-m", "venv", self.make_reahl_env_dir(reahl_app_name)]
-        #     )
-        #     self.install_reahl_prereq_packages(reahl_app_name)
-        #     self.install_reahl_apps(reahl_app_name, reahl_wheel[1])
-        #     reahl_app_www_pth = self.www_dir / reahl_app_name
-        #     reahl_app_www_pth.mkdir(parents=True, exist_ok=True)
-        #     if self.curr_os == beeutils.LINUX:
-        #         beescript.exec_cmd(["sudo", "chmod", "777", reahl_app_www_pth])
-        #         beescript.exec_cmd(
-        #             ["sudo", "chown", "www-data.www-data", reahl_app_www_pth]
-        #         )
-        #     self.config_reahl_domain(reahl_app_name)
-        #     self.create_reahl_config(reahl_app_name)
-        #     self.create_reahl_system_account_model_config(reahl_app_name)
-        #     self.create_reahl_web_config(reahl_app_name)
-        #     self.create_uwsgi_ini(reahl_app_name)
-        #     self.create_db(reahl_app_name)
-        # for domain_name in self.ini.get(
-        #     "Domains", self.domain_name_prefix, p_prefix=True, p_split=False
-        # ):
-        #     self.create_nginx_config(domain_name[1])
-        # batch = [
-        #     x[1]
-        #     for x in self.ini.get(
-        #         "{}03".format(self.batch_name_prefix),
-        #         self.command_name_prefix,
-        #         p_prefix=True,
-        #         p_split=True,
-        #     )
-        # ]
-        # beescript.exec_batch(batch, p_verbose=True)
+        self.install_system_prereq_packages()
+        batch = [
+            x[1]
+            for x in self.ini.get(
+                "{}03".format(self.batch_name_prefix),
+                self.command_name_prefix,
+                p_prefix=True,
+                p_split=True,
+            )
+        ]
+        beescript.exec_batch(batch, p_verbose=True)
         pass
 
     def install_reahl_prereq_packages(self, p_app_name):
