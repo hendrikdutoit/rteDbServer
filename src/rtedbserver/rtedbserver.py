@@ -54,7 +54,7 @@ class RteDbServer:
 
         self.batch_name_prefix = self.ini.get("General", "BatchNamePrefix")
         self.command_name_prefix = self.ini.get("General", "CommandNamePrefix")
-        # self.curr_os = beeutils.get_os()
+        self.curr_os = beeutils.get_os()
         # self.data_dir = Path(self.ini.get("DEFAULT", "DataFolder"))
         # self.domain_name_prefix = self.ini.get("General", "DomainNamePrefix")
         # self.etc_dir = Path(self.ini.get("DEFAULT", "etcFolder"))
@@ -403,7 +403,7 @@ class RteDbServer:
             )
         ]
         beescript.exec_batch(batch, p_verbose=True)
-        # self.secure_mysql()
+        self.secure_mysql()
         # self.start_firewall()
         # batch = [
         #     x[1]

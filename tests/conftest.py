@@ -109,9 +109,9 @@ CommandNamePrefix = Cmd
 # Default = 0
 # Console = 0
 # File    = 0
-#
-# [MySQLUsers]
-# Admin = root;En0l@Gay
+
+[MySQLUsers]
+Admin = root;En0l@Gay
 # User1 = %(InstallUserId)s;%(InstallUserPassword)s;localhost
 # Rights1 = root;localhost;*;*;Y;ALL
 # Rights2 = %(InstallUserId)s;localhost;*;*;Y;ALL
