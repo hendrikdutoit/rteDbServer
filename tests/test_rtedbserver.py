@@ -19,7 +19,7 @@ class TestrteDbServer:
     def test__init__(self, env_setup_self_destruct):
         """Assert class __init__"""
         env_setup = env_setup_self_destruct
-        t_rtedbserver = rtedbserver.RteDbServer(env_setup.dir)
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
 
         assert t_rtedbserver.success
         pass
