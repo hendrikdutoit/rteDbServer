@@ -41,6 +41,12 @@ class TestrteDbServer:
         t_rtedbserver.install()
         pass
 
+    def test_install_system_prereq_packages(self, env_setup_self_destruct):
+        env_setup = env_setup_self_destruct
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
+        t_rtedbserver.install_system_prereq_packages()
+        pass
+
     def test_secure_mysql(self, env_setup_self_destruct):
         env_setup = env_setup_self_destruct
         t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)

@@ -5,13 +5,10 @@ Use the InstallIt framework to rteinstallserver a Linux Server for a Reahl Appli
 
 import argparse
 from pathlib import Path
-import shutil
-import sys
 
 from beetools import beearchiver, beeutils, beescript
 import configparserext
 import installit
-from termcolor import colored
 
 _PROJ_DESC = __doc__.split("\n")[0]
 _PROJ_PATH = Path(__file__)
@@ -83,52 +80,6 @@ class RteDbServer:
         self.inst_tls = installit.InstallIt()
         pass
 
-    def create_db(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        if self.ini.getboolean(p_reahl_app_name, "CreateDb"):
-            script_name = "create_db"
-            db_system = self.ini.get(p_reahl_app_name, "DataBase")
-            script_cmds, switches = self._get_create_db_script(db_system)
-            script_cmds.append("{}\n".format(self.reahl_activate_env(p_reahl_app_name)))
-            if self.ini.get(p_reahl_app_name, "CreateDbUser"):
-                script_cmds.append(
-                    "reahl createdbuser {}".format(
-                        self.reahl_config_dir / p_reahl_app_name
-                    )
-                )
-            if self.ini.get(p_reahl_app_name, "CreateDb"):
-                script_cmds.append(
-                    "reahl createdb {}".format(self.reahl_config_dir / p_reahl_app_name)
-                )
-            if self.ini.get(p_reahl_app_name, "CreateDbTables"):
-                script_cmds.append(
-                    "reahl createdbtables {}".format(
-                        self.reahl_config_dir / p_reahl_app_name
-                    )
-                )
-            if self.curr_os == beeutils.LINUX:
-                script_cmds.append("exit")
-                script_cmds.append("_EOF_")
-            beescript.exec_batch_in_session(
-                script_cmds,
-                p_switches=switches,
-                p_script_name=script_name,
-                p_verbose=True,
-            )
-        pass
-
     def create_linux_users(self):
         """
 
@@ -191,194 +142,6 @@ class RteDbServer:
         )
         return success
 
-    def create_nginx_config(self, p_domain_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        self.inst_tls.create_nginx_config(
-            p_domain_name,
-            self.nginx_root_dir,
-            self.ini.get(p_domain_name, "ReahlApp"),
-            self.ini.getboolean(p_domain_name, "SiteActive"),
-            p_verbose=True,
-        )
-        pass
-
-    def config_reahl_domain(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        settings = [self.ini.get(p_reahl_app_name, "SMTP", p_split=False)]
-        self.inst_tls.create_reahl_mailutil_config(
-            p_reahl_app_name, self.reahl_config_dir, settings, p_verbose=True
-        )
-        pass
-
-    def create_reahl_config(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        self.inst_tls.create_reahl_config(
-            p_reahl_app_name,
-            self.reahl_config_dir,
-            self.reahl_db_dir,
-            self.ini.get(p_reahl_app_name, "DataBase"),
-            self.inst_tls.make_userid(p_reahl_app_name),
-            self.inst_tls.make_user_passwd(p_reahl_app_name),
-            p_verbose=True,
-        )
-        pass
-
-    def create_reahl_system_account_model_config(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        self.inst_tls.create_reahl_systemaccountmodel_config(
-            p_reahl_app_name,
-            self.reahl_config_dir,
-            self.ini.get(p_reahl_app_name, "eMail"),
-            p_verbose=True,
-        )
-        pass
-
-    def create_reahl_web_config(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        web_site_root = self.ini.get(p_reahl_app_name, "WebSiteRoot")
-        self.inst_tls.create_reahl_web_config(
-            p_reahl_app_name,
-            self.reahl_config_dir,
-            self.www_dir,
-            web_site_root,
-            p_verbose=True,
-        )
-        pass
-
-    def create_uwsgi_ini(self, p_reahl_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        parms = {
-            "uwsgiProcesses": self.ini.get(p_reahl_app_name, "uwsgiProcesses"),
-            "uwsgiThreats": self.ini.get(p_reahl_app_name, "uwsgiThreats"),
-            "AppActive": self.ini.getboolean(p_reahl_app_name, "AppActive"),
-        }
-        self.inst_tls.create_uwsgi_ini(
-            p_reahl_app_name,
-            self.uwsgi_root_dir,
-            parms,
-            self.venv_base_dir,
-            p_reahl_app_name,
-            p_verbose=True,
-        )
-        pass
-
-    def _get_create_db_script(self, p_db_system):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        switches = []
-        if self.curr_os == beeutils.LINUX:
-            switches = ["-x"]
-        if p_db_system == "sqlite":
-            script_cmds = []
-            if self.curr_os == beeutils.LINUX:
-                script_cmds = ["sudo -u www-data bash -l << _EOF_"]
-        elif p_db_system == "mysql":
-            admin = self.ini.get("MySQLUsers", "Admin", p_split=True)
-            script_cmds = []
-            if self.curr_os == beeutils.LINUX:
-                script_cmds = ["sudo -i << _EOF_", f"export MYSQL_PWD={admin[1]}\n"]
-            else:
-                script_cmds.append("SET MYSQL_PWD={}\n".format(admin[1]))
-        elif p_db_system == "postgresql":
-            script_cmds = []
-            if self.curr_os == beeutils.LINUX:
-                script_cmds = ["sudo -i << _EOF_"]
-            pass
-        else:
-            print(colored("System terminated!", "red"))
-            print(
-                beearchiver.msg_error(
-                    "Unknown database system: {}\nSystem terminated...".format(
-                        p_db_system
-                    )
-                )
-            )
-            sys.exit()
-        return script_cmds, switches
-
     def install(self):
         """
 
@@ -430,74 +193,6 @@ class RteDbServer:
         beescript.exec_batch(batch, p_verbose=True)
         pass
 
-    def install_reahl_prereq_packages(self, p_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        switches = []
-        script_name = "install_reahl_prereq_packages"
-        script_cmds = []
-        if self.curr_os == beeutils.LINUX:
-            switches = ["-x"]
-            script_cmds = ["sudo -i << _EOF_"]
-        script_cmds.append("{}\n".format(self.reahl_activate_env(p_app_name)))
-        for package in self.ini.get(
-            "ReahlPreReqPackages", self.package_prefix, p_prefix=True, p_split=True
-        ):
-            script_cmds.append("pip3 rteinstallserver {}".format(package[1][0]))
-        if self.curr_os == beeutils.LINUX:
-            script_cmds.append("exit")
-            script_cmds.append("_EOF_")
-        beescript.exec_batch_in_session(
-            script_cmds, p_script_name=script_name, p_verbose=True, p_switches=switches
-        )
-        pass
-
-    def install_reahl_apps(self, p_reahl_app_name, p_reahl_wheel):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        switches = []
-        script_cmds = []
-        script_name = "installReahlWheels"
-        if self.curr_os == beeutils.LINUX:
-            switches = ["-x"]
-            script_cmds = ["sudo -i << _EOF_"]
-        script_cmds.append("{}\n".format(self.reahl_activate_env(p_reahl_app_name)))
-        script_cmds.append(
-            "pip3 rteinstallserver --find-links {} {}".format(
-                self.reahl_distribution_dir,
-                self.reahl_distribution_dir / p_reahl_wheel,
-            )
-        )
-        if self.curr_os == beeutils.LINUX:
-            script_cmds.append("exit")
-            script_cmds.append("_EOF_")
-        beescript.exec_batch_in_session(
-            script_cmds, p_script_name=script_name, p_verbose=True, p_switches=switches
-        )
-        pass
-
     def install_system_prereq_packages(self):
         """
 
@@ -533,103 +228,6 @@ class RteDbServer:
         )
         pass
 
-    def make_reahl_env_dir(self, p_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        return self.venv_base_dir / Path("{}{}".format(p_app_name, self.venv_suffix))
-
-    def _prepare_test(self):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-
-        def remove_dirs(p_dirs_to_delete):
-            for folder in p_dirs_to_delete:
-                if folder.is_dir():
-                    # contents = folder.glob( '**' )
-                    for item in folder.iterdir():
-                        # path = os.path.join( folder, item )
-                        if item.is_dir():
-                            shutil.rmtree(item, ignore_errors=True)
-                        elif item.is_file():
-                            item.unlink()
-                    shutil.rmtree(folder, ignore_errors=True)
-
-        success = True
-        if self.curr_os == beeutils.WINDOWS:
-            if self.data_dir.is_dir():
-                folders_to_delete = [
-                    self.etc_dir,
-                    self.nginx_root_dir,
-                    self.reahl_dir,
-                    self.reahl_config_dir,
-                    # self.usrLocal_dir,
-                    self.uwsgi_root_dir,
-                    self.www_dir,
-                    self.www_dir,
-                ]
-                remove_dirs(folders_to_delete)
-            else:
-                self.data_dir.mkdir()
-            self.etc_dir.mkdir()
-            for reahl_wheel in self.ini.get(
-                "ReahlWheels", self.package_prefix, p_prefix=True, p_split=False
-            ):
-                reahl_app_name = self.inst_tls.get_reahl_app_name(reahl_wheel[1])
-                beeutils.rm_tree(self.make_reahl_env_dir(reahl_app_name))
-            # for wheel in self.ini.get( 'ReahlWheels', self.package_prefix, p_prefix = True, p_split = False ):
-            #     wheel_pth = Path( 'D:\\', 'Dropbox', 'Lib', 'Wheels', wheel[ 1 ])
-            #     shutil.copy( wheel_pth, self.etc_dir )
-        elif self.curr_os == beeutils.LINUX:
-            users = [
-                x[1]
-                for x in self.ini.get(
-                    "LinuxUsers", self.user_prefix, p_prefix=True, p_split=True
-                )
-            ]
-            success = self.inst_tls.delete_linux_users(users)
-
-            list_to_del = [
-                Path("/etc", "uwsgi", "apps-enabled", "RealtimeeventsCo.ini"),
-                Path("/etc", "uwsgi", "apps-available", "RealtimeeventsCo.ini"),
-                Path("/etc", "nginx", "sites-enabled", "RealtimeeventsCo.conf"),
-                Path("/etc", "nginx", "sites-available", "RealtimeeventsCo.conf"),
-            ]
-            for pth in list_to_del:
-                beeutils.rm_tree(pth)
-                print(beearchiver.msg_info("del {}".format(pth)))
-
-        admin = self.ini.get("MySQLUsers", "Admin", p_split=True)
-        users = [
-            [x[1][0], x[1][2]]
-            for x in self.ini.get(
-                "MySQLUsers", self.user_prefix, p_prefix=True, p_split=True
-            )
-        ]
-        success = self.inst_tls.delete_mysql_users(admin, users) and success
-        return success
-
     def run(self):
         """
 
@@ -655,31 +253,6 @@ class RteDbServer:
                 )
             )
         pass
-
-    def reahl_activate_env(self, p_app_name):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
-        # reahl_activate = self.make_reahl_env_dir( p_app_name ) / 'bin' / 'activate'
-        if self.curr_os == beeutils.LINUX:
-            script_cmd = "source {}".format(
-                self.make_reahl_env_dir(p_app_name) / "bin" / "activate"
-            )
-        else:
-            script_cmd = "{}".format(
-                self.make_reahl_env_dir(p_app_name) / "Scripts" / "activate"
-            )
-        return script_cmd
 
     def secure_mysql(self):
         """
@@ -756,22 +329,6 @@ class RteDbServer:
                 p_verbose=True,
                 p_switches=switches,
             )
-        pass
-
-    def _validate_test(self):
-        """
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-        Examples
-        --------
-        # No proper doctest (<<<) because it is os dependent
-
-        """
         pass
 
 
