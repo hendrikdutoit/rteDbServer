@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 #clear
 
 # Variables
@@ -6,7 +6,7 @@ ini=$1 # Ini configuration file specific to platform and machine
 usr_dir=/usr
 venv_dir=$usr_dir/venv
 rte_install_venv=$venv_dir/rte_install_env
-rte_install_dir=$rte_install_venv/lib/python3.8/site-packages/rteinstallserver
+rte_install_dir=$rte_install_venv/lib/python3.8/site-packages/rtedbserver
 
 # Create instlation sudo user
 user_name='rtinstall'
@@ -26,10 +26,10 @@ chmod 777 $venv_dir
 python3 -m venv --clear $rte_install_venv
 source $rte_install_venv/bin/activate
 pip install --upgrade InstallIt
-pip install --upgrade git+https://github.com/hendrikdutoit/rteInstallServer.git
+pip install --upgrade git+https://github.com/hendrikdutoit/rteDbServer.git
 
 #Install and configure the server packages
-python3 $rte_install_dir/rteinstallserver.py -c $rte_install_dir/rteInstallServer_s1.ini
+python3 $rte_install_dir/rtedbserver.py -c $rte_install_dir/rteDbServer_s1.ini
 
 
 # Prompt to close the session
