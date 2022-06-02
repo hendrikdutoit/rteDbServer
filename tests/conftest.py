@@ -101,8 +101,8 @@ MySQLRightsPrefix = Rights
 UserPrefix        = User
 # VenvSuffix        = _env
 
-# [LinuxUsers]
-# User1 = hendrik;S@ret6810;sudo
+[LinuxUsers]
+User1 = hendrik;S@ret6810;sudo
 #
 # [LogLevels]
 # #CRITICAL = 50, ERROR = 40, WARNING = 30, INFO = 20, DEBUG = 10, NOTSET = 0
