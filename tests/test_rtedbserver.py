@@ -25,6 +25,7 @@ class TestrteDbServer:
         assert t_rtedbserver.ini_path == env_setup.ini_pth
         assert t_rtedbserver.batch_name_prefix == 'Batch'
         assert t_rtedbserver.command_name_prefix == 'Cmd'
+        assert t_rtedbserver.install_userid == 'rtinstall'
         assert t_rtedbserver.mysql_rights_prefix == 'Rights'
         assert t_rtedbserver.package_prefix == 'App'
         assert t_rtedbserver.target_os == 'linux'

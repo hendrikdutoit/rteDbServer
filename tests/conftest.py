@@ -62,9 +62,9 @@ Cmd2110 = sudo;apt-get;-y;install;mysql-client
 # Cmd3070 = sudo;systemctl;start;uwsgi
 # Cmd3080 = sudo;systemctl;is-enabled;uwsgi
 #
-# [DEFAULT]
+[DEFAULT]
 # etcFolder               = /etc
-# InstallUserId           = rtinstall
+InstallUserId           = rtinstall
 # InstallUserPassword     = Rt1inst@ll
 # NginXRootFolder         = %(etcFolder)s/nginx
 # ProjectsFolder          = /nfs/projects

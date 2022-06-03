@@ -55,7 +55,7 @@ class RteDbServer:
         # self.data_dir = Path(self.ini.get("DEFAULT", "DataFolder"))
         # self.domain_name_prefix = self.ini.get("General", "DomainNamePrefix")
         # self.etc_dir = Path(self.ini.get("DEFAULT", "etcFolder"))
-        # self.install_userid = Path(self.ini.get("DEFAULT", "InstallUserId"))
+        self.install_userid = self.ini.get("DEFAULT", "InstallUserId")
         self.mysql_rights_prefix = self.ini.get("General", "MySQLRightsPrefix")
         # self.nginx_root_dir = Path(self.ini.get("DEFAULT", "NginXRootFolder"))
         # self.nginx_sites_available_dir = self.nginx_root_dir / "sites-available"
