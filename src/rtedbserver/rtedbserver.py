@@ -212,9 +212,7 @@ class RteDbServer:
             "SystemPreReqPackages", self.package_prefix, p_prefix=True, p_split=True
         ):
             if self.curr_os == beeutils.LINUX:
-                script_cmds.append(
-                    "sudo pip3 rteinstallserver {}".format(package[1][0])
-                )
+                script_cmds.append("sudo pip3 install {}".format(package[1][0]))
             else:
                 script_cmds.append("pip3 rteinstallserver {}".format(package[1][0]))
         switches = []
