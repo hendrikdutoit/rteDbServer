@@ -97,7 +97,7 @@ CommandNamePrefix = Cmd
 # DomainNamePrefix  = Url
 PackagePrefix     = App
 MySQLRightsPrefix = Rights
-# TargetOS          = linux
+TargetOS          = linux
 UserPrefix        = User
 # VenvSuffix        = _env
 

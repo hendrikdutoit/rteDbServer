@@ -67,7 +67,7 @@ class RteDbServer:
         #     self.ini.get("DEFAULT", "ReahlDistributionFolder")
         # )
         # self.reahl_dir = Path(self.ini.get("DEFAULT", "ReahlFolder"))
-        # self.target_os = self.ini.get("General", "TargetOS")
+        self.target_os = self.ini.get("General", "TargetOS")
         # self.test_mode = self.ini.getboolean("Test", "TestMode")
         self.user_prefix = self.ini.get("General", "UserPrefix")
         # self.uwsgi_root_dir = Path(self.ini.get("DEFAULT", "UwsgiRootFolder"))

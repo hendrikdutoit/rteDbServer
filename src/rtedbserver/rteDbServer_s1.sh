@@ -1,4 +1,4 @@
-#!/bin/bash
+##!/bin/bash
 #clear
 
 # Variables
@@ -6,7 +6,7 @@ ini=$1 # Ini configuration file specific to platform and machine
 usr_dir=/usr
 venv_dir=$usr_dir/venv
 rte_install_venv=$venv_dir/rte_install_env
-rte_install_dir=$rte_install_venv/lib/python3.8/site-packages/rtedbserver
+rte_install_dir=$rte_install_venv/lib/python3.10/site-packages/rtedbserver
 
 # Create instlation sudo user
 user_name='rtinstall'
