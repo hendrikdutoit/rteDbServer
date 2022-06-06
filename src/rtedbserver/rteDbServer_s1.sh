@@ -35,4 +35,4 @@ python3 $rte_install_dir/rtedbserver.py -c $rte_install_dir/rteDbServer_s1.ini
 # Prompt to close the session
 echo Session completed
 echo Press any key to finsh and quit
-read quit
+#read quit
