@@ -34,6 +34,12 @@ class TestrteDbServer:
         assert t_rtedbserver.success
         pass
 
+    def test_configure_mysql_remote_access(self, env_setup_self_destruct):
+        env_setup = env_setup_self_destruct
+        t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
+        t_rtedbserver.configure_mysql_remote_access()
+        pass
+
     def test_create_linux_users(self, env_setup_self_destruct):
         env_setup = env_setup_self_destruct
         t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)

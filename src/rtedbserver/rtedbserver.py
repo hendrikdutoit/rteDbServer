@@ -80,6 +80,25 @@ class RteDbServer:
         self.inst_tls = installit.InstallIt()
         pass
 
+    def configure_mysql_remote_access(self):
+        admin = self.ini.get("MySQLUsers", "Admin", p_split=True)
+        users = [
+            x[1]
+            for x in self.ini.get(
+                "MySQLUsers", self.user_prefix, p_prefix=True, p_split=True
+            )
+        ]
+        rights = [
+            x[1]
+            for x in self.ini.get(
+                "MySQLUsers", self.mysql_rights_prefix, p_prefix=True, p_split=True
+            )
+        ]
+        success = self.inst_tls.configure_mysql_remote_access(
+            admin, [users[1]], [rights[2]], p_verbose=True
+        )
+        return success
+
     def create_linux_users(self):
         """
 
@@ -180,6 +199,7 @@ class RteDbServer:
         beescript.exec_batch(batch, p_verbose=True)
         self.create_linux_users()
         self.create_mysql_users()
+        self.configure_mysql_remote_access()
         self.install_system_prereq_packages()
         batch = [
             x[1]

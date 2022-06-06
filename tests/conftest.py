@@ -65,7 +65,7 @@ Cmd2110 = sudo;apt-get;-y;install;mysql-client
 [DEFAULT]
 # etcFolder               = /etc
 InstallUserId           = rtinstall
-# InstallUserPassword     = Rt1inst@ll
+InstallUserPassword     = Rt1inst@ll
 # NginXRootFolder         = %(etcFolder)s/nginx
 # ProjectsFolder          = /nfs/projects
 # VenvBaseFolder          = %(UsrLocalFolder)s
@@ -112,9 +112,11 @@ User1 = hendrik;S@ret6810;sudo
 
 [MySQLUsers]
 Admin = root;En0l@Gay
-# User1 = %(InstallUserId)s;%(InstallUserPassword)s;localhost
-# Rights1 = root;localhost;*;*;Y;ALL
-# Rights2 = %(InstallUserId)s;localhost;*;*;Y;ALL
+User1 = %(InstallUserId)s;%(InstallUserPassword)s;localhost
+User2 = rtremote;rtremote;%%
+Rights1 = root;localhost;*;*;Y;ALL
+Rights2 = %(InstallUserId)s;localhost;*;*;Y;ALL
+Rights3 = rtremote;%%;*;*;N;ALL
 #
 # [ReahlPreReqPackages]
 # App01 = wheel
