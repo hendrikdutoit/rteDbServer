@@ -31,7 +31,6 @@ Rights1 = root;localhost;*;*;Y;ALL
 Rights2 = %(InstallUserId)s;localhost;*;*;Y;ALL
 Rights3 = remoteuser;%%;*;*;N;ALL
 
-
 [SystemPreReqPackages]
 App100 = mysql-connector-python
 

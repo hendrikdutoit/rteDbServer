@@ -26,8 +26,8 @@ Cmd2110 = sudo;apt-get;-y;install;mysql-client
 [Batch03]
 
 [DEFAULT]
-InstallUserId           = rtinstall
-InstallUserPassword     = Rt1inst@ll
+InstallUserId           = installuser
+InstallUserPassword     = installpassword
 
 [General]
 BatchNamePrefix   = Batch
@@ -36,18 +36,18 @@ PackagePrefix     = App
 MySQLRightsPrefix = Rights
 TargetOS          = linux
 UserPrefix        = User
-# VenvSuffix        = _env
+# VenvSuffix      = _env
 
 [LinuxUsers]
-User1 = hendrik;S@ret6810;sudo
+User1 = testuser;testpassword;sudo
 
 [MySQLUsers]
-Admin = root;En0l@Gay
+Admin = root;rootpassword
 User1 = %(InstallUserId)s;%(InstallUserPassword)s;localhost
-User2 = rtremote;rtremote;%%
+User2 = remoteuser;remotepassword;%%
 Rights1 = root;localhost;*;*;Y;ALL
 Rights2 = %(InstallUserId)s;localhost;*;*;Y;ALL
-Rights3 = rtremote;%%;*;*;N;ALL
+Rights3 = remoteuser;%%;*;*;N;ALL
 
 [SystemPreReqPackages]
 App100 = mysql-connector-python

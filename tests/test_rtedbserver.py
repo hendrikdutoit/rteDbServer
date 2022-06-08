@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from beetools.beearchiver import Archiver
+import configparserext
 import installit
 import rtedbserver
 
@@ -22,10 +23,11 @@ class TestrteDbServer:
         t_rtedbserver = rtedbserver.RteDbServer(env_setup.ini_pth)
 
         assert t_rtedbserver.success
-        assert t_rtedbserver.ini_path == env_setup.ini_pth
         assert t_rtedbserver.batch_name_prefix == 'Batch'
         assert t_rtedbserver.command_name_prefix == 'Cmd'
-        assert t_rtedbserver.install_userid == 'rtinstall'
+        assert t_rtedbserver.install_userid == 'installuser'
+        assert isinstance(t_rtedbserver.ini, configparserext.ConfigParserExt)
+        assert t_rtedbserver.ini_path == env_setup.ini_pth
         assert t_rtedbserver.mysql_rights_prefix == 'Rights'
         assert t_rtedbserver.package_prefix == 'App'
         assert t_rtedbserver.target_os == 'linux'

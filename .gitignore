@@ -12,6 +12,8 @@ TestData/*_env/
 .git/
 tmp/
 data/.netrc
+src/rtedbserver/rteDbServer_s1_Dev.ini
+src/rtedbserver/rteDbServer_s1_Prod.ini
 
 
 # Byte-compiled / optimized / DLL files

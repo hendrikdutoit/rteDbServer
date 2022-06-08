@@ -52,30 +52,11 @@ class RteDbServer:
         self.batch_name_prefix = self.ini.get("General", "BatchNamePrefix")
         self.command_name_prefix = self.ini.get("General", "CommandNamePrefix")
         self.curr_os = beeutils.get_os()
-        # self.data_dir = Path(self.ini.get("DEFAULT", "DataFolder"))
-        # self.domain_name_prefix = self.ini.get("General", "DomainNamePrefix")
-        # self.etc_dir = Path(self.ini.get("DEFAULT", "etcFolder"))
         self.install_userid = self.ini.get("DEFAULT", "InstallUserId")
         self.mysql_rights_prefix = self.ini.get("General", "MySQLRightsPrefix")
-        # self.nginx_root_dir = Path(self.ini.get("DEFAULT", "NginXRootFolder"))
-        # self.nginx_sites_available_dir = self.nginx_root_dir / "sites-available"
-        # self.nginx_sites_enabled_dir = self.nginx_root_dir / "sites-enabled"
         self.package_prefix = self.ini.get("General", "PackagePrefix")
-        # self.reahl_config_dir = Path(self.ini.get("DEFAULT", "ReahlConfigFolder"))
-        # self.reahl_db_dir = Path(self.ini.get("DEFAULT", "ReahlDbFolder"))
-        # self.reahl_distribution_dir = Path(
-        #     self.ini.get("DEFAULT", "ReahlDistributionFolder")
-        # )
-        # self.reahl_dir = Path(self.ini.get("DEFAULT", "ReahlFolder"))
         self.target_os = self.ini.get("General", "TargetOS")
-        # self.test_mode = self.ini.getboolean("Test", "TestMode")
         self.user_prefix = self.ini.get("General", "UserPrefix")
-        # self.uwsgi_root_dir = Path(self.ini.get("DEFAULT", "UwsgiRootFolder"))
-        # self.uwsgi_apps_available_dir = self.uwsgi_root_dir / "apps-available"
-        # self.uwsgi_apps_enabled_dir = self.uwsgi_root_dir / "apps-enabled"
-        # self.venv_base_dir = Path(self.ini.get("DEFAULT", "VenvBaseFolder"))
-        # self.venv_suffix = Path(self.ini.get("General", "VenvSuffix"))
-        # self.www_dir = Path(self.ini.get("DEFAULT", "wwwFolder"))
 
         self.inst_tls = installit.InstallIt()
         pass
