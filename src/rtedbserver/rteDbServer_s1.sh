@@ -1,5 +1,5 @@
-##!/bin/bash
-#clear
+#!/bin/bash
+clear
 
 # Variables
 _sytem=$1 # Ini configuration file specific to platform and machine
