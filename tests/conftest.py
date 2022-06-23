@@ -37,7 +37,7 @@ UserPrefix        = User
 User1 = testuser;testpassword;sudo
 
 [MySQLUsers]
-Admin = root;rootpassword
+Admin = root;root
 User1 = %(InstallUserId)s;%(InstallUserPassword)s;localhost
 User2 = remoteuser;remotepassword;%%
 Rights1 = root;localhost;*;*;Y;ALL
