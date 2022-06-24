@@ -1,6 +1,9 @@
 name: Distribute to PyPI
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+       - '*'
 
 jobs:
   ReleaseToPyPi:
@@ -23,6 +26,7 @@ jobs:
         run: python -m build
 
       - name: Publish package to PyPI
+        if: github.repository == 'hendrikdutoit/rteDbServer' && github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
